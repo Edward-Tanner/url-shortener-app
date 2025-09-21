@@ -27,9 +27,7 @@ app.post('/short_url', async (req, res) => {
   const url = parseResult.data.url
   const result = await createShortLink(url)
 
- return res.status(200).json({
-    result,
-  })
+ return res.status(200).json(result)
 })
 
 // Endpoint to get the Long URL from the Short URL
@@ -37,9 +35,7 @@ app.get('/short_url/:short_url', async (req, res) => {
   const shortUrl = req.params.short_url
   
   const result = await getLongLink(shortUrl)
-   return res.status(200).json({
-    result,
-  })
+   return res.status(200).json(result)
 })
 
 app.listen(port, () => {

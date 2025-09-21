@@ -2,7 +2,7 @@ import { ShortUrl } from "../entities/short_url"
 import { urlNotFoundError } from "../repositories/errors/short_url_errors"
 import { getShortURLFromDB, persistShortURLToDB } from "../repositories/short_url/dynamodb"
 
-export async function createShortLink(longUrl: string): Promise<string> {
+export async function createShortLink(longUrl: string): Promise<{url: string}> {
     const shortUrl = await generateShortUrl()
     const newShortUrl = new ShortUrl({
         shortUrl,
@@ -13,7 +13,7 @@ export async function createShortLink(longUrl: string): Promise<string> {
     })
 
     await persistShortURLToDB(newShortUrl)
-    return newShortUrl.shortUrl
+    return { url: newShortUrl.shortUrl }
 }
 
 const generateShortUrl = async (): Promise<string> => {
